@@ -15,6 +15,12 @@ public class ImageModel {
 		super();
 	}
 
+	public ImageModel(String name, String type, byte[] picByte) {
+		this.name = name;
+		this.type = type;
+		this.picByte = picByte;
+	}
+
 	@Id
 	@Column(name = "id", length = 5)
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -58,12 +64,6 @@ public class ImageModel {
 	}
 
 	public void setPicByte(byte[] picByte) {
-		this.picByte = picByte;
-	}
-
-	public ImageModel(String name, String type, byte[] picByte) {
-		this.name = name;
-		this.type = type;
 		this.picByte = picByte;
 	}
 }

@@ -1,6 +1,7 @@
 package com.javainuse.controller;
 
 import java.io.ByteArrayOutputStream;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +34,16 @@ public class ImageUploadController {
 	@Autowired
 	private ImageRepository imageRepository;
 
+	// uploading an image
 	@PostMapping("/upload")
 	public ResponseEntity<ImageModel> uplaodImage(@RequestParam("imageFile") MultipartFile file) throws IOException {
 		System.out.println("Original Image Byte Size - " + file.getBytes().length);
-		ImageModel img = new ImageModel(file.getOriginalFilename(), file.getContentType(),
-				compressBytes(file.getBytes()));
+		ImageModel img = new ImageModel(file.getOriginalFilename(), file.getContentType(),compressBytes(file.getBytes()));
 		imageRepository.save(img);
 		return new ResponseEntity<>(img,HttpStatus.OK);
 	}
 
+	// retrieving image from the db by using file name
 	@GetMapping(path = { "/get/{imageName}" })
 	public ResponseEntity<ImageModel> getImage(@PathVariable("imageName") String imageName) throws IOException {
 		Optional<ImageModel> retrievedImage = imageRepository.findByName(imageName);
@@ -50,6 +52,7 @@ public class ImageUploadController {
 		return new ResponseEntity<>(img, HttpStatus.OK);
 	}
 
+	// retrieving all images
 	@GetMapping(path = "/get/All_Images")
 	public ResponseEntity<List<ImageModel>> getAllImages(){
 		List<ImageModel> list = new ArrayList<>();
