@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ImageUpload</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+ <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+ integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+  <div class="container row">
+    <div class="col-md-12">
+        <h2>Upload Image</h2>
+    </div>
+</div>
+
+<div class="container row">
+    <div class="col-md-6">
+        <input type="file" (change)="onFileChanged($event)">
+    </div>
+    <div class="col-md-6">
+        <input type="button" (click)="onUpload()" value="upload">
+    </div>
+    <div style="color:green;" *ngIf=message>{{message}}</div>
+</div>
+<hr>
+
+<div class="container row">
+    <div class="col-md-12">
+        <h2>Retrieve Image</h2>
+    </div>
+</div>
+<div class="container row">
+    <div class="col-md-6">
+        <input type="text" class="form-control" id="name" placeholder="image name" [(ngModel)]="imageName"
+            name="name">
+    </div>
+    <div class="col-md-6">
+        <input type="button" (click)="getImage()" value="Get Image">
+    </div>
+</div>
+
+<div class="container row">
+    <div class="col-md-12">
+        <div *ngIf=retrievedImage>
+            <img height="160" width="150" [src]="retrievedImage">
+        </div>
+    </div>
+</div>
+<br>
+<hr>
+
+<div class="col-md-12">
+<h2>Retrieve all images</h2>
+<input type='submit' value="get all images" (click)="getAllImages()">
+</div>
+<br>
+<div>
+<div class="col-md-12" *ngFor="let i of image">
+<img height="160" width="150" [src]="i">
+</div>
+</div>
+</body>
+</html>
