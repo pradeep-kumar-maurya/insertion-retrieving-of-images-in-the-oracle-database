@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.javainuse.db.ImageRepository;
+import com.javainuse.exception.ImageNotFoundException;
 import com.javainuse.model.ImageModel;
 
 @RestController
@@ -45,13 +46,19 @@ public class ImageUploadController {
 
 	// retrieving image from the database by using file name
 	@GetMapping(path = { "/get/{imageName}" })
-	public ResponseEntity<ImageModel> getImage(@PathVariable("imageName") String imageName) throws IOException {
+	public ResponseEntity<ImageModel> getImage(@PathVariable("imageName") String imageName) throws IOException,
+	ImageNotFoundException {
 		Optional<ImageModel> retrievedImage = imageRepository.findByName(imageName);
-		ImageModel img = new ImageModel(retrievedImage.get().getName(), retrievedImage.get().getType(),
-				decompressBytes(retrievedImage.get().getPicByte()));
-		return new ResponseEntity<>(img, HttpStatus.OK);
+		try{
+			ImageModel img = new ImageModel(retrievedImage.get().getName(), retrievedImage.get().getType(),
+					decompressBytes(retrievedImage.get().getPicByte()));
+			return new ResponseEntity<>(img, HttpStatus.OK);
+		}
+		catch (Exception e) {
+			throw new ImageNotFoundException("Sorry, image was not found!!!");
+		}
 	}
-
+	
 	// retrieving all images
 	@GetMapping(path = "/get/All_Images")
 	public ResponseEntity<List<ImageModel>> getAllImages(){
