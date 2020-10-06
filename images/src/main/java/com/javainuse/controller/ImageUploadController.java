@@ -55,7 +55,7 @@ public class ImageUploadController {
 			return new ResponseEntity<>(img, HttpStatus.OK);
 		}
 		catch (Exception e) {
-			throw new ImageNotFoundException("Sorry, image was not found!!!");
+			throw new ImageNotFoundException("Sorry, image '" +imageName+"' was not found!!!");
 		}
 	}
 	

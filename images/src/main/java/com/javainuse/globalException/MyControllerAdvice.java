@@ -9,10 +9,9 @@ import com.javainuse.exception.ImageNotFoundException;
 
 @ControllerAdvice
 public class MyControllerAdvice {
-	
+
 	@ExceptionHandler
 	public ResponseEntity<String> imageNotFound(ImageNotFoundException i){
 		return new ResponseEntity<String>(i.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-
 }
