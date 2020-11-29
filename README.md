@@ -1,1 +1,1 @@
-# insertion-retrieving-of-images-in-the-oracle-database
+# insertion and retrieval of images in the oracle database
